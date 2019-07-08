@@ -2,6 +2,8 @@ package pl.insert.model;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -27,6 +29,13 @@ public class Dog {
     @Column(name="DESCRIPTION")
     @Lob //usuwa pgraniczenia dotyczace długości ciągu znaków w bazie danych
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name="PET_OWNER_ID")
+    private PetOwner petOwner;
+
+    @ManyToMany
+    private Collection<Spot> spots = new ArrayList<Spot>();
 
 
     public long getId() {
@@ -62,5 +71,19 @@ public class Dog {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public PetOwner getPetOwner() {
+        return petOwner;
+    }
+    public void setPetOwner(PetOwner petOwner) {
+        this.petOwner = petOwner;
+    }
+
+    public Collection<Spot> getSpots() {
+        return spots;
+    }
+    public void setSpots(Collection<Spot> spots) {
+        this.spots = spots;
     }
 }
